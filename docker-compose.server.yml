@@ -1,0 +1,23 @@
+services:
+  tillkosiol-backend:
+    image: ghcr.io/tkosiol/tillkosiol_backend:latest
+    container_name: tillkosiol-backend
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - PORT=3000
+      - NODE_ENV=production
+      - CORS_ORIGINS=https://tillkosiol.de,https://www.tillkosiol.de
+      - THROTTLE_TTL=60000
+      - THROTTLE_LIMIT=100
+    networks:
+      - proxy-network
+      - database-network
+    depends_on:
+      - postgresql
+
+networks:
+  proxy-network:
+    external: true
+  database-network:
+    external: true
