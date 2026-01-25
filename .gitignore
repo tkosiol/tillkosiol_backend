@@ -29,3 +29,5 @@ Thumbs.db
 
 #docker compose
 docker-compose.yaml
+
+package-lock.json
