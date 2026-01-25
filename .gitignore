@@ -26,3 +26,6 @@ Thumbs.db
 
 # Drizzle
 *.sql
+
+#docker compose
+docker-compose.yaml
