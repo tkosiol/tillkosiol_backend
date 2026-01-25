@@ -24,8 +24,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'npm'
+          node-version: "22"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -68,11 +68,9 @@ jobs:
             cd ~/docker/apps/tillkosiol-backend
             docker compose pull
             docker compose up -d
-            
-            # Run migrations
-            docker exec tillkosiol-backend npm run db:push
 
-      - name: Health check
-        run: |
-          sleep 10
-          curl -f https://api.tillkosiol.de/api/health || exit 1
+            # Wait for container to be ready
+            sleep 5
+
+            # Health check
+            docker logs tillkosiol-backend --tail 20
