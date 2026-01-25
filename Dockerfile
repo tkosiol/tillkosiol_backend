@@ -11,6 +11,9 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
+# Debug: Check what was built
+RUN ls -la dist/
+
 # Production Stage
 FROM node:22-alpine AS production
 
@@ -24,8 +27,11 @@ RUN addgroup -g 1001 -S nodejs && \
 COPY package*.json ./
 RUN npm ci --only=production && npm cache clean --force
 
-# Copy built application
+# Copy built application from build stage
 COPY --from=build /app/dist ./dist
+
+# Debug: Check what was copied
+RUN ls -la dist/
 
 # Set ownership
 RUN chown -R nestjs:nodejs /app
@@ -38,4 +44,4 @@ ENV PORT=3000
 
 EXPOSE 3000
 
-CMD ["node", "dist/main"]
+CMD ["node", "dist/main.js"]
