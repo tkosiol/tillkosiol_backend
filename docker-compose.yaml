@@ -1,0 +1,30 @@
+name: tillkosiol
+
+services:
+  postgresql:
+    image: postgres:17-alpine
+    container_name: tillkosiol-db-local
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: tillo
+      POSTGRES_PASSWORD: localdev123
+      POSTGRES_DB: tillkosiol
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer:latest
+    container_name: tillkosiol-adminer-local
+    restart: unless-stopped
+    environment:
+      ADMINER_DEFAULT_SERVER: postgresql
+      ADMINER_DESIGN: dracula
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgresql
+
+volumes:
+  postgres_data:

@@ -28,4 +28,8 @@ Thumbs.db
 *.sql
 
 #docker compose
-docker-compose.yaml
+docker-compose.yaml*.tsbuildinfo
+drizzle.config.js
+drizzle.config.d.ts
+drizzle.config.js.map
+.env.production
